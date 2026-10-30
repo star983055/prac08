@@ -1,5 +1,5 @@
 import { useStudy } from './study-state';
-import { useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 
 // Publishable key: access is restricted by the database's grants and RLS.
 const apiUrl = 'https://udjbojamuoofyxuggskc.supabase.co';
@@ -10,6 +10,13 @@ export function FeedbackForm() {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
   const submitting = useRef(false);
+  const result = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (status === 'success' || status === 'error') {
+      result.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }, [status]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -46,8 +53,13 @@ export function FeedbackForm() {
           <span>{message.length}/1,000자</span>
           <button type="submit" disabled={!study.data.rating || !message.trim() || status === 'saving'}>{status === 'saving' ? '저장 중…' : '저장'}</button>
         </div>
-        <p role="status" aria-live="polite" className={status === 'error' ? 'study-error' : ''}>
-          {status === 'success' ? '별점과 후기가 저장되었습니다. 감사합니다!' : status === 'error' ? '저장하지 못했어요. 연결 상태를 확인하고 다시 시도해주세요.' : ''}
+        <p ref={result} role="status" aria-live="polite" aria-atomic="true"
+          style={status === 'success' || status === 'error' ? {
+            padding: '12px 14px', marginTop: 16, borderRadius: 10,
+            background: status === 'success' ? '#edf8f0' : '#fff0f0',
+            color: status === 'success' ? '#176537' : '#ba1a1a', fontWeight: 600,
+          } : undefined}>
+          {status === 'success' ? '✓ 후기 작성이 완료되었습니다.' : status === 'error' ? '저장하지 못했어요. 연결 상태를 확인하고 다시 저장해주세요.' : status === 'saving' ? '후기를 저장하고 있어요…' : ''}
         </p>
       </form>
     </section>
