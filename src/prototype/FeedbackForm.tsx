@@ -37,14 +37,14 @@ export function FeedbackForm() {
   return (
     <section className="study-feedback" aria-label="후기 작성">
 
-      <p id="feedback-help">별점을 선택하고 후기를 남겨주세요. 개인정보는 입력하지 마세요.</p>
+
       <form onSubmit={submit}>
         <label htmlFor="feedback-input">이용 후기</label>
-        <textarea id="feedback-input" aria-describedby="feedback-help" placeholder="이용하면서 좋았던 점이나 아쉬웠던 점을 남겨주세요" maxLength={1000} required disabled={status === 'saving'} value={message}
+        <textarea id="feedback-input" placeholder="이용하면서 좋았던 점이나 아쉬웠던 점을 남겨주세요" maxLength={1000} required disabled={status === 'saving'} value={message}
           onChange={event => { setMessage(event.target.value); setStatus('idle'); }} />
         <div className="study-feedback-footer">
           <span>{message.length}/1,000자</span>
-          <button type="submit" disabled={!study.data.rating || !message.trim() || status === 'saving'}>{status === 'saving' ? '저장 중…' : '별점과 후기 저장'}</button>
+          <button type="submit" disabled={!study.data.rating || !message.trim() || status === 'saving'}>{status === 'saving' ? '저장 중…' : '저장'}</button>
         </div>
         <p role="status" aria-live="polite" className={status === 'error' ? 'study-error' : ''}>
           {status === 'success' ? '별점과 후기가 저장되었습니다. 감사합니다!' : status === 'error' ? '저장하지 못했어요. 연결 상태를 확인하고 다시 시도해주세요.' : ''}
