@@ -45,7 +45,7 @@ export function Interactive({screen,label='',className,children,...props}:Props)
     if(seat){s.setSelection({seat});return;}
     if(favorite){s.toggleFavorite(favorite);return;}
     if(rating>=0){
-      const value=rating+1;s.setData(d=>{const id=d.report?.id||d.booking?.id;return {...d,rating:value,report:d.report?{...d.report,rating:value}:undefined,history:d.history.map(b=>b.id===id?{...b,rating:value}:b),booking:d.booking&&d.booking.id===id&&d.booking.status==='finished'?{...d.booking,rating:value}:d.booking};});s.toast(`${value}점으로 저장했어요.`);return;
+      const value=rating+1;s.setData(d=>{const id=d.report?.id||d.booking?.id;return {...d,rating:value,report:d.report?{...d.report,rating:value}:undefined,history:d.history.map(b=>b.id===id?{...b,rating:value}:b),booking:d.booking&&d.booking.id===id&&d.booking.status==='finished'?{...d.booking,rating:value}:d.booking};});s.toast(`${value}점을 선택했어요. 후기를 작성한 뒤 저장해 주세요.`);return;
     }
     if(kind==='tag'){s.setData(d=>{const tags=d.tags.includes(label)?d.tags.filter(t=>t!==label):[...d.tags,label],id=d.report?.id||d.booking?.id;return {...d,tags,report:d.report?{...d.report,tags}:undefined,history:d.history.map(b=>b.id===id?{...b,tags}:b)};});return;}
     if(id==='35:6776'){s.setConsent(!s.consent);return;}

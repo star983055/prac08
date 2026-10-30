@@ -1,4 +1,5 @@
 import { BottomDock } from '../BottomDock';
+
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink, PrototypeCard } from '../primitives';
 const imgAb6AXuCWeYTtLzuDtu8Ej1UxdbyM73BQ3RtwOaicSwqCqqEfMtUlyY9WtsG5P9T072LDoJ7USSb8LrttQttOmcHmAnlJeShTZgnzwoPKwcKBLiwxoNqPGau3ScfKtb2KrSpe266SpZ1Xyceyoa00GVTj6Mwe6DxjlHn5ABbS05LrHpXz7OF4XCy9S96Uxk4RZzYlfyOqv6HfYKrHcgd1IkSfb46Q5TWjjg2G53FTu7I = "/prototype/35-5707-95986.png";
@@ -360,6 +361,7 @@ export default function StudyZoneScreen() {
           </div>
         </div>
       </div>
+
       <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.85)] content-stretch flex flex-col isolate items-start left-0 shadow-[0px_1px_8px_0px_rgba(20,40,80,0.06)] top-0 w-[402px]" data-node-id="35:5914" data-name="Header">
         <div className="content-stretch flex h-[44px] items-center justify-between px-[24px] relative shrink-0 w-full z-[2]" data-node-id="35:5915" data-name="Container">
           <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="35:5916" data-name="Container">

@@ -66,3 +66,19 @@
 .study-calendar-footer span { flex: 1; font-size: 12px; color: #44464e; }
 .prototype-stage [data-node-id="35:7119"] { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 5px; left: 0 !important; right: 0 !important; overflow: visible; }
 .prototype-stage [data-node-id="35:7119"] > .study-control { position: relative !important; left: auto !important; top: auto !important; width: auto !important; min-width: 0 !important; padding: 6px 2px !important; }
+.study-feedback { flex-shrink: 0; width: calc(100% - 40px); margin: 20px 20px 32px; padding: 20px; border-radius: 16px; background: white; color: #131b2e; font: 14px/1.6 Arial,sans-serif; box-shadow: 0 2px 6px #14285015; }
+.study-feedback h2 { font-size: 18px; font-weight: 700; }
+.study-feedback p { margin: 8px 0; color: #44464e; white-space: normal; }
+.study-feedback label { display: block; margin-top: 16px; font-weight: 600; }
+.study-feedback textarea { display: block; width: 100%; min-height: 112px; margin-top: 8px; padding: 12px; border: 1px solid #c5c6d0; border-radius: 10px; background: white; color: #131b2e; font: inherit; resize: vertical; }
+.study-feedback textarea:focus-visible, .study-feedback button:focus-visible { outline: 3px solid #316bf3; outline-offset: 3px; }
+.study-feedback-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; gap: 8px; }
+.study-feedback-footer span { font-size: 12px; color: #75777f; }
+.study-feedback button { min-height: 44px; padding: 10px 20px; background: #0051d5; color: white; border: 0; border-radius: 10px; font-weight: 600; cursor: pointer; }
+.study-feedback button:disabled { opacity: .5; cursor: not-allowed; }
+.study-feedback p.study-error { color: #ba1a1a; }
+.prototype-stage [data-node-id="35:8423"] { height: auto; }
+.prototype-stage [data-node-id="35:8424"] .study-feedback { width: 100%; margin: 0; padding: 0; box-shadow: none; }
+.prototype-stage [data-node-id="35:8471"] { top: 1290px; }
+.prototype-stage [data-node-id="35:8344"] { height: 1510px; }
+.prototype-stage [data-node-id="35:8345"] { height: 1408px; }

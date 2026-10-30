@@ -1,3 +1,4 @@
+import { FeedbackForm } from '../FeedbackForm';
 import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink, PrototypeCard } from '../primitives';
@@ -261,6 +262,7 @@ export default function FinishedScreen() {
                   </Interactive>
                 </div>
               </div>
+              <FeedbackForm />
             </div>
           </div>
           <div className="absolute h-[88px] left-[20px] right-[20px] top-[1090px]" data-node-id="35:8470" data-name="Notice Alert for Leaving items:margin"/>
