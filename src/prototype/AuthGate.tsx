@@ -97,7 +97,7 @@ function LoginScreen() {
 
   return <main className="login-shell">
     <div className="login-card">
-      <div className="login-brand"><span className="login-symbol" aria-hidden="true">E</span><span className="login-members">MEMBERS</span></div>
+      <div className="login-brand">EDIYA COFFEE</div>
       <div className="login-intro"><span className="login-eyebrow">STUDY ZONE</span><h1>{signup ? '함께 집중해요' : '나만의 집중을 시작해요'}</h1><p>{signup ? '나만의 아이디로 스터디존을 이용해보세요.' : '로그인하고 편안한 스터디 공간을 만나보세요.'}</p></div>
       <form onSubmit={submit}>
         <label htmlFor="login-id">아이디</label>
