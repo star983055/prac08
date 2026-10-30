@@ -50,7 +50,6 @@ export const BottomNavigationSection = (): JSX.Element => {
               key={item.label}
               type="button"
               variant="ghost"
-              h-auto
               aria-current={isActive ? "page" : undefined}
               aria-label={item.label}
               onClick={() => setActiveItem(item.label)}

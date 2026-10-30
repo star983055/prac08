@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { Screen } from "./screens/Screen/Screen";
+import { PrototypeApp } from "./prototype/PrototypeApp";
 
 createRoot(document.getElementById("app") as HTMLElement).render(
   <StrictMode>
-    <Screen />
+    <PrototypeApp />
   </StrictMode>,
 );
