@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink, PrototypeCard } from '../primitives';
 const imgAb6AXuCWeYTtLzuDtu8Ej1UxdbyM73BQ3RtwOaicSwqCqqEfMtUlyY9WtsG5P9T072LDoJ7USSb8LrttQttOmcHmAnlJeShTZgnzwoPKwcKBLiwxoNqPGau3ScfKtb2KrSpe266SpZ1Xyceyoa00GVTj6Mwe6DxjlHn5ABbS05LrHpXz7OF4XCy9S96Uxk4RZzYlfyOqv6HfYKrHcgd1IkSfb46Q5TWjjg2G53FTu7I = "/prototype/35-5707-95986.png";
@@ -404,7 +405,7 @@ export default function StudyZoneScreen() {
           </div>
         </div>
       </div>
-      <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-[2px] shadow-[0px_-2px_12px_0px_rgba(20,40,80,0.05)] w-[402px]" data-node-id="35:5940" data-name="Nav">
+      <BottomDock className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-[2px] shadow-[0px_-2px_12px_0px_rgba(20,40,80,0.05)] w-[402px]" data-node-id="35:5940" data-name="Nav">
         <div className="content-stretch flex h-[64px] items-center px-[4px] relative shrink-0 w-full" data-node-id="35:5941" data-name="Container">
           <PrototypeLink className="content-stretch cursor-pointer flex flex-col gap-[2px] items-center justify-center min-h-[44px] min-w-[54px] pl-[14.98px] pr-[15px] py-[2px] relative shrink-0" data-node-id="35:5942" data-name="Link" aria-label="홈">
             <div className="h-[18px] relative shrink-0 w-[16px]" data-node-id="35:5943" data-name="Container">
@@ -463,6 +464,6 @@ export default function StudyZoneScreen() {
         <div className="content-stretch flex items-center justify-center pb-[8px] pt-[2px] relative shrink-0 w-full" data-node-id="35:5969" data-name="Container">
           <div className="bg-[rgba(19,27,46,0.3)] h-[4px] relative rounded-[9999px] shrink-0 w-[144px]" data-node-id="35:5970" data-name="Overlay"/>
         </div>
-      </div>
+      </BottomDock>
     </div>);
 }

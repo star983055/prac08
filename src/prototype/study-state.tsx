@@ -15,7 +15,7 @@ export function today() { const d = new Date(); return `${d.getFullYear()}-${Str
 export function dayAt(index: number, base = today()) { const d = new Date(`${base}T12:00:00`); d.setDate(d.getDate()+index); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 export function time(value: number) { return `${String(Math.floor(value / 60)).padStart(2,'0')}:${String(value % 60).padStart(2,'0')}`; }
 export function dateLabel(value: string) { const d=new Date(`${value}T12:00:00`); return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${'일월화수목금토'[d.getDay()]})`; }
-export function go(slug: string) { if(window.location.hash===`#/${slug}`) window.scrollTo(0,0); else window.location.hash=`/${slug}`; }
+export function go(slug: string) { if(window.location.hash===`#/${slug}`) document.querySelector('.prototype-scroll')?.scrollTo({top:0}); else window.location.hash=`/${slug}`; }
 const defaults: Saved = { selection: {store:'daehak',date:today(),start:840,end:960,seat:'A03'}, booking:null,history:[],favorites:['daehak'],orders:[],rating:0,tags:[],awayUntil:null };
 function load(): Saved {
   try { const raw = JSON.parse(localStorage.getItem(KEY) || 'null');

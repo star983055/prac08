@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive, Surface } from '../controls';
 import { PrototypeLink } from '../primitives';
 const imgAb6AXuDWjkVpaLodRXnSeZlhq8VBy6UIKsfk7WbbqS0DlHyh69Ncnr5A6JeEhOrD1KBxUbOmUqpU4BylGZiVq5T6EsRFwUiDwS6Unlrf9WJn1LKie9F3BIlsDni4I216Gd0DWo5Drvy5GTfPrjnp2Gq6Jn3ANojFiclkQdRMhX9CrSLfTmlEqjQDk4QVw28RJy1BTxOk7Kt1Ny2Cxx1Xk8SktQuy770BBVbg = "/prototype/35-6657-56942.png";
@@ -334,7 +335,7 @@ export default function ConfirmScreen() {
           </div>
         </div>
       </div>
-      <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.95)] bottom-0 content-stretch flex flex-col items-start left-0 pt-[12px] px-[20px] right-0 shadow-[0px_-8px_24px_0px_rgba(20,40,80,0.08)]" data-node-id="35:6792" data-name="Floating Fixed Action Dock">
+      <BottomDock className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.95)] bottom-0 content-stretch flex flex-col items-start left-0 pt-[12px] px-[20px] right-0 shadow-[0px_-8px_24px_0px_rgba(20,40,80,0.08)]" data-node-id="35:6792" data-name="Floating Fixed Action Dock">
         <div className="content-stretch flex flex-col gap-[4px] items-start max-w-[390px] relative shrink-0 w-full" data-node-id="35:6793" data-name="Container">
           <PrototypeLink className="bg-[#142850] content-stretch cursor-pointer flex gap-[4px] h-[52px] items-center justify-center relative rounded-[12px] shrink-0 w-full" data-node-id="35:6794" data-name="Button" aria-label="예약 확정하기">
             <div className="absolute bg-[rgba(255,255,255,0)] h-[52px] left-0 right-0 rounded-[12px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] top-0" data-node-id="35:6795" data-name="Button:shadow"/>
@@ -351,6 +352,6 @@ export default function ConfirmScreen() {
             <div className="bg-[rgba(19,27,46,0.3)] h-[4px] relative rounded-[9999px] shrink-0 w-[128px]" data-node-id="35:6801" data-name="Overlay"/>
           </div>
         </div>
-      </div>
+      </BottomDock>
     </div>);
 }

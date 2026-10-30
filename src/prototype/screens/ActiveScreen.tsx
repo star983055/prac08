@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink } from '../primitives';
 const imgContainer = "/prototype/35-8146-30157.svg";
@@ -385,7 +386,7 @@ export default function ActiveScreen() {
           </div>
         </div>
       </div>
-      <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-0 right-0 shadow-[0px_-4px_16px_0px_rgba(20,40,80,0.06)]" data-node-id="35:8314" data-name="Nav">
+      <BottomDock className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-0 right-0 shadow-[0px_-4px_16px_0px_rgba(20,40,80,0.06)]" data-node-id="35:8314" data-name="Nav">
         <div className="content-stretch flex h-[64px] items-center px-[4px] relative shrink-0 w-full" data-node-id="35:8315" data-name="Container">
           <PrototypeLink className="content-stretch cursor-pointer flex flex-col h-[56px] items-center justify-center min-w-[44px] relative shrink-0 w-[76.39px]" data-node-id="35:8316" data-name="Link" aria-label="홈">
             <div className="h-[18px] relative shrink-0 w-[16px]" data-node-id="35:8317" data-name="Container">
@@ -441,6 +442,6 @@ export default function ActiveScreen() {
         <div className="content-stretch flex items-start justify-center pb-[8px] pt-[4px] relative shrink-0 w-full" data-node-id="35:8341" data-name="Container">
           <div className="bg-[rgba(19,27,46,0.2)] h-[4px] relative rounded-[9999px] shrink-0 w-[144px]" data-node-id="35:8342" data-name="Overlay"/>
         </div>
-      </div>
+      </BottomDock>
     </div>);
 }

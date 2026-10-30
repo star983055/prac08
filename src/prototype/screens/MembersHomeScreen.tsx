@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink, PrototypeCard } from '../primitives';
 const imgAb6AXuABmCBv8Nq0Mx3W33ZjoVenEHkWX9Jh0ZjR2J1Iazw8Pl3Brcv1Ok2TT0Cf79H3By3M4Fhph8Fp7XaBHd7R3T0SgH7ENlsK2DPrtmvVLe3Jb1PJ2CTtuvDvCjQzsplhps3BxSckNfrSXew6Vo0XLk17MeiSLfGNnDxPhPiXSx9LcTrSa6Ag1JnoOwFmiQbEf9JoHRsiFopfKOyAdeLoReNn9CP40 = "/prototype/35-6181-4f7bc.png";
@@ -391,7 +392,7 @@ export default function MembersHomeScreen() {
           </div>
         </div>
       </div>
-      <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-0 shadow-[0px_-2px_12px_0px_rgba(20,40,80,0.05)] w-[402px]" data-node-id="35:6442" data-name="Nav">
+      <BottomDock className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-0 shadow-[0px_-2px_12px_0px_rgba(20,40,80,0.05)] w-[402px]" data-node-id="35:6442" data-name="Nav">
         <div className="content-stretch flex h-[64px] items-center px-[4px] relative shrink-0 w-full" data-node-id="35:6443" data-name="Container">
           <Interactive className="content-stretch flex flex-col gap-[2px] items-center justify-center min-h-[44px] min-w-[54px] pl-[14.98px] pr-[15px] py-[2px] relative shrink-0" data-node-id="35:6444" data-name="Link" screen="MembersHomeScreen" label="홈">
             <div className="h-[18px] relative shrink-0 w-[16px]" data-node-id="35:6445" data-name="Container">
@@ -447,6 +448,6 @@ export default function MembersHomeScreen() {
             </div>
           </Interactive>
         </div>
-      </div>
+      </BottomDock>
     </div>);
 }

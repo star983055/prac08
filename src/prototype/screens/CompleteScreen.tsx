@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink } from '../primitives';
 const imgStoreAmbientVisualMicroTile = "/prototype/35-7508-ec0c9.png";
@@ -296,7 +297,7 @@ export default function CompleteScreen() {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-0 content-stretch cursor-pointer flex flex-col gap-[10px] items-start left-[20px] right-[20px]" data-node-id="35:7632" data-name="Section - Sticky Bottom Action Group (Clear Mobile Thumb Zone)">
+          <BottomDock className="absolute bottom-0 content-stretch cursor-pointer flex flex-col gap-[10px] items-start left-[20px] right-[20px]" data-node-id="35:7632" data-name="Section - Sticky Bottom Action Group (Clear Mobile Thumb Zone)">
             <PrototypeLink className="bg-[#001337] content-stretch flex gap-[8px] h-[52px] items-center justify-center relative rounded-[12px] shrink-0 w-full" data-node-id="35:7633" data-name="Primary Navy CTA Button" aria-label="예약현황 확인하기">
               <div className="absolute bg-[rgba(255,255,255,0)] h-[52px] left-0 right-0 rounded-[12px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] top-0" data-node-id="35:7634" data-name="Primary Navy CTA Button:shadow"/>
               <div className="h-[16.667px] relative shrink-0 w-[15px]" data-node-id="35:7635" data-name="Container">
@@ -318,7 +319,7 @@ export default function CompleteScreen() {
                 </div>
               </div>
             </PrototypeLink>
-          </div>
+          </BottomDock>
         </div>
       </div>
       <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.85)] content-stretch flex flex-col items-start left-0 shadow-[0px_1px_8px_0px_rgba(20,40,80,0.06)] top-0 w-[402px]" data-node-id="35:7644" data-name="Header">

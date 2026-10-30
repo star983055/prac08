@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink, PrototypeCard } from '../primitives';
 const imgContainer = "/prototype/35-8343-addb2.svg";
@@ -275,7 +276,7 @@ export default function FinishedScreen() {
             </div>
           </div>
           <div className="absolute bottom-[62px] content-stretch flex flex-col h-[135px] items-start left-0 pt-[24px] right-0" data-node-id="35:8485" data-name="Section - Primary & Secondary Action CTAs:margin">
-            <div className="content-stretch cursor-pointer flex flex-col gap-[12px] items-start pt-[4px] relative shrink-0 w-full" data-node-id="35:8486" data-name="Section - Primary & Secondary Action CTAs">
+            <BottomDock className="content-stretch cursor-pointer flex flex-col gap-[12px] items-start pt-[4px] relative shrink-0 w-full" data-node-id="35:8486" data-name="Section - Primary & Secondary Action CTAs">
               <PrototypeLink className="bg-[#001337] content-stretch flex gap-[8px] h-[52px] items-center justify-center relative rounded-[12px] shrink-0 w-full" data-node-id="35:8487" data-name="Button" aria-label="다시 스터디존 예약하기">
                 <div className="absolute bg-[rgba(255,255,255,0)] h-[52px] left-0 right-0 rounded-[12px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] top-0" data-node-id="35:8488" data-name="Button:shadow"/>
                 <div className="h-[16.667px] relative shrink-0 w-[15.833px]" data-node-id="35:8489" data-name="Container">
@@ -293,7 +294,7 @@ export default function FinishedScreen() {
                   <BoundText className="leading-[20px]" nodeId="35:8495" screen="FinishedScreen" controlId="">홈으로 이동</BoundText>
                 </div>
               </PrototypeLink>
-            </div>
+            </BottomDock>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink } from '../primitives';
 const imgContainer = "/prototype/35-6471-aaa40.svg";
@@ -300,7 +301,7 @@ export default function WaitingScreen() {
           </div>
         </div>
       </div>
-      <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 h-[64px] left-0 shadow-[0px_-2px_12px_0px_rgba(20,40,80,0.05)] w-[402px]" data-node-id="35:6628" data-name="Nav">
+      <BottomDock className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 h-[64px] left-0 shadow-[0px_-2px_12px_0px_rgba(20,40,80,0.05)] w-[402px]" data-node-id="35:6628" data-name="Nav">
         <div className="absolute content-stretch flex h-[64px] items-center left-0 px-[4px] right-0 top-0" data-node-id="35:6629" data-name="Container">
           <PrototypeLink className="content-stretch cursor-pointer flex flex-col gap-[2px] items-center justify-center min-h-[44px] min-w-[54px] pl-[14.98px] pr-[15px] py-[2px] relative shrink-0" data-node-id="35:6630" data-name="Link" aria-label="홈">
             <div className="h-[18px] relative shrink-0 w-[16px]" data-node-id="35:6631" data-name="Container">
@@ -356,6 +357,6 @@ export default function WaitingScreen() {
             </div>
           </Interactive>
         </div>
-      </div>
+      </BottomDock>
     </div>);
 }

@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink } from '../primitives';
 const imgContainer = "/prototype/35-7961-54754.svg";
@@ -282,7 +283,7 @@ export default function CheckedInScreen() {
               </div>
             </div>
           </div>
-          <div className="absolute content-stretch cursor-pointer flex flex-col gap-[12px] items-start left-[20px] right-[20px] top-[919px]" data-node-id="35:8102" data-name="Bottom Interactive Buttons">
+          <BottomDock className="absolute content-stretch cursor-pointer flex flex-col gap-[12px] items-start left-[20px] right-[20px] top-[919px]" data-node-id="35:8102" data-name="Bottom Interactive Buttons">
             <PrototypeLink className="bg-[#142850] content-stretch flex gap-[8px] h-[52px] items-center justify-center relative rounded-[14px] shrink-0 w-full" data-node-id="35:8103" data-name="Primary CTA: Deep Navy Button" aria-label="예약현황 및 타이머 보기">
               <div className="absolute bg-[rgba(255,255,255,0)] h-[52px] left-0 right-0 rounded-[14px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] top-0" data-node-id="35:8104" data-name="Primary CTA: Deep Navy Button:shadow"/>
               <div className="h-[17.5px] relative shrink-0 w-[15px]" data-node-id="35:8105" data-name="Container">
@@ -304,7 +305,7 @@ export default function CheckedInScreen() {
                 </div>
               </div>
             </PrototypeLink>
-          </div>
+          </BottomDock>
         </div>
       </div>
       <div className="absolute bottom-0 content-stretch flex flex-col items-start left-0 right-0" data-node-id="35:8114" data-name="Footer">

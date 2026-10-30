@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { CalendarTrigger } from '../CalendarPicker';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink } from '../primitives';
@@ -461,7 +462,7 @@ export default function TimeScreen() {
           </div>
         </div>
       </div>
-      <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-0 px-[20px] py-[12px] right-0 shadow-[0px_-4px_16px_0px_rgba(20,40,80,0.06)]" data-node-id="35:7297" data-name="Sticky Bottom Action Bar">
+      <BottomDock className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-0 px-[20px] py-[12px] right-0 shadow-[0px_-4px_16px_0px_rgba(20,40,80,0.06)]" data-node-id="35:7297" data-name="Sticky Bottom Action Bar">
         <div className="content-stretch flex flex-col gap-[8px] items-start max-w-[448px] relative shrink-0 w-full" data-node-id="35:7298" data-name="Container">
           <PrototypeLink className="bg-[#001337] content-stretch cursor-pointer flex gap-[7.99px] h-[52px] items-center justify-center relative rounded-[12px] shrink-0 w-full" data-node-id="35:7304" data-name="Primary Action CTA Button" aria-label="좌석 선택하기">
             <div className="absolute bg-[rgba(255,255,255,0)] h-[52px] left-0 right-0 rounded-[12px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] top-0" data-node-id="35:7305" data-name="Primary Action CTA Button:shadow"/>
@@ -478,6 +479,6 @@ export default function TimeScreen() {
             <div className="bg-[rgba(19,27,46,0.2)] h-[4px] relative rounded-[9999px] shrink-0 w-[128px]" data-node-id="35:7311" data-name="iOS Home Indicator Spacing"/>
           </div>
         </div>
-      </div>
+      </BottomDock>
     </div>);
 }

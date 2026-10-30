@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { Interactive, BoundText } from '../controls';
 import { PrototypeLink } from '../primitives';
 const imgAb6AXuAh6Bef6OGbSoeNZvR6QpzgKgFsjQ5Sp47UrcM0S6CuoFi96FOq4AIqdUozHhe0MYrpWyvbpo7AJ76Qlh6D4LTow9YKzYsQ88YchFcz2QFdPo9NVv5F25SZjbZOiEa26ZUiQPuUbE0QlKhp4IkV2IyRxuKMdF4Ej2C0NnnzgD3BrAcyOtuoLwbsDeDjI7BwTxlxVyUGsvPeZxMmOtI07YcEfiCDvTtFfNtMdpBc0W = "/prototype/35-7673-ccc67.png";
@@ -309,7 +310,7 @@ export default function EmptyScreen() {
           </div>
         </div>
       </div>
-      <div className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-0 right-0 shadow-[0px_-4px_16px_0px_rgba(20,40,80,0.06)]" data-node-id="35:7833" data-name="Nav">
+      <BottomDock className="absolute backdrop-blur-[24px] bg-[rgba(255,255,255,0.9)] bottom-0 content-stretch flex flex-col items-start left-0 right-0 shadow-[0px_-4px_16px_0px_rgba(20,40,80,0.06)]" data-node-id="35:7833" data-name="Nav">
         <div className="content-stretch flex h-[64px] items-center px-[4px] relative shrink-0 w-full" data-node-id="35:7834" data-name="Container">
           <PrototypeLink className="content-stretch cursor-pointer flex flex-col h-[56px] items-center justify-center min-w-[44px] relative shrink-0 w-[76.39px]" data-node-id="35:7835" data-name="Link" aria-label="홈">
             <div className="h-[18px] relative shrink-0 w-[16px]" data-node-id="35:7836" data-name="Container">
@@ -365,6 +366,6 @@ export default function EmptyScreen() {
         <div className="content-stretch flex items-start justify-center pb-[8px] pt-[4px] relative shrink-0 w-full" data-node-id="35:7860" data-name="Container">
           <div className="bg-[rgba(19,27,46,0.2)] h-[4px] relative rounded-[9999px] shrink-0 w-[144px]" data-node-id="35:7861" data-name="Overlay"/>
         </div>
-      </div>
+      </BottomDock>
     </div>);
 }

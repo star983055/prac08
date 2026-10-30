@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from 'react';
 import { prototypeLinks, screens } from './manifest';
 import StudyZoneScreen from './screens/StudyZoneScreen';
 import SeatScreen from './screens/SeatScreen';
@@ -18,6 +18,7 @@ import './prototype.css';
 import './interactive.css';
 import { useStudy } from './study-state';
 import { StudyDialog } from './StudyDialog';
+import { DockTargetContext } from './BottomDock';
 
 const components = { StudyZoneScreen, SeatScreen, MembersHomeScreen, WaitingScreen, ConfirmScreen, StoresScreen, TimeScreen, FavoritesScreen, CompleteScreen, EmptyScreen, ScanScreen, CheckedInScreen, ActiveScreen, FinishedScreen };
 
@@ -30,6 +31,10 @@ export function PrototypeApp() {
   const [screen, setScreen] = useState(currentScreen);
   const [viewportSize, setViewportSize] = useState(() => ({ width: window.innerWidth, height: window.visualViewport?.height || window.innerHeight }));
   const viewport = useRef<HTMLElement>(null);
+  const scrollBody = useRef<HTMLDivElement>(null);
+  const canvas = useRef<HTMLDivElement>(null);
+  const [dockTarget, setDockTarget] = useState<HTMLDivElement | null>(null);
+  const [measured, setMeasured] = useState({ id: '', height: 0 });
   const transitionDuration = useRef(0);
   const stage = useRef<HTMLDivElement>(null);
   const firstRender = useRef(true);
@@ -71,6 +76,7 @@ export function PrototypeApp() {
   useEffect(() => {
     document.title = `${screen.name} · 스터디존`;
     window.scrollTo(0, 0);
+    scrollBody.current?.scrollTo({ top: 0, behavior: 'instant' });
     if (!firstRender.current) {
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && transitionDuration.current > 0) {
         stage.current?.animate([{ opacity: 0 }, { opacity: 1 }], {
@@ -92,16 +98,53 @@ export function PrototypeApp() {
 
   const Screen = components[screen.component];
   const topOffset = screen.slug === 'stores' ? 22 : 0;
-  const canvasHeight = screen.slug === 'favorites' ? 1400 : screen.height;
-  const scale = Math.min(1, viewportSize.width / (screen.width + 4), viewportSize.height / (canvasHeight + topOffset));
+  // A single width-based scale keeps type and controls the same size on every route.
+  const scale = Math.min(1, viewportSize.width / 402);
+  const canvasHeight = measured.id === screen.id ? measured.height : screen.height;
+
+  useLayoutEffect(() => {
+    const element = canvas.current;
+    if (!element) return;
+    let frame = 0;
+    function measure() {
+      if (!element) return;
+      const origin = element.getBoundingClientRect();
+      const ratio = origin.width / screen.width;
+      if (!ratio) return;
+      let bottom = 160;
+      for (const leaf of element.querySelectorAll<HTMLElement>('p, input, button, [role="button"], [role="checkbox"], a')) {
+        const bounds = leaf.getBoundingClientRect();
+        if (!bounds.width || !bounds.height || !leaf.checkVisibility()) continue;
+        bottom = Math.max(bottom, (bounds.bottom - origin.top) / ratio);
+      }
+      const height = Math.ceil(bottom + 24);
+      setMeasured(previous => previous.id === screen.id && previous.height === height ? previous : { id: screen.id, height });
+    }
+    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(measure); };
+    measure();
+    const changes = new MutationObserver(schedule);
+    changes.observe(element, { childList: true, subtree: true });
+    const sizes = new ResizeObserver(schedule);
+    sizes.observe(element);
+    void document.fonts.ready.then(schedule);
+    return () => { cancelAnimationFrame(frame); changes.disconnect(); sizes.disconnect(); };
+  }, [screen.id, screen.width, scale, dockTarget]);
+
   return (
     <main className="prototype-viewport" ref={viewport} onClickCapture={rememberTransition}>
-      <div className="prototype-stage" ref={stage} tabIndex={-1} aria-label={screen.name}
-        style={{ width: screen.width, height: canvasHeight + topOffset, zoom: scale }}>
-        <div className="prototype-canvas" style={{ width: screen.width, height: canvasHeight, top: topOffset }}>
-          <Screen key={screen.id} />
+      <DockTargetContext.Provider value={dockTarget}>
+        <div className="prototype-phone" style={{ width: 402, height: viewportSize.height / scale, zoom: scale }}>
+          <div className="prototype-scroll" ref={scrollBody}>
+            <div className="prototype-stage" ref={stage} tabIndex={-1} aria-label={screen.name}
+              style={{ width: screen.width, height: canvasHeight + topOffset }}>
+              <div className="prototype-canvas" ref={canvas} style={{ width: screen.width, height: canvasHeight, top: topOffset }}>
+                <Screen key={screen.id} />
+              </div>
+            </div>
+          </div>
+          <div className="prototype-dock" ref={setDockTarget} aria-label="하단 메뉴 및 주요 동작" />
         </div>
-      </div>
+      </DockTargetContext.Provider>
       <StudyDialog />
     </main>
   );

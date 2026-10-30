@@ -1,3 +1,4 @@
+import { BottomDock } from '../BottomDock';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink } from '../primitives';
 const imgContainer = "/prototype/35-5971-1556e.svg";
@@ -453,7 +454,7 @@ export default function SeatScreen() {
           </div>
         </div>
       </div>
-      <div className="absolute backdrop-blur-[12px] bg-[rgba(255,255,255,0.9)] bottom-[-0.33px] content-stretch flex flex-col items-start left-0 px-[20px] py-[12px] right-0" data-node-id="35:6156" data-name="Sticky Bottom Reservation CTA Bar">
+      <BottomDock className="absolute backdrop-blur-[12px] bg-[rgba(255,255,255,0.9)] bottom-[-0.33px] content-stretch flex flex-col items-start left-0 px-[20px] py-[12px] right-0" data-node-id="35:6156" data-name="Sticky Bottom Reservation CTA Bar">
         <div className="absolute bg-[rgba(255,255,255,0)] inset-0 shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]" data-node-id="35:6157" data-name="Sticky Bottom Reservation CTA Bar:shadow"/>
         <PrototypeLink className="bg-[#0051d5] content-stretch cursor-pointer flex gap-[3.99px] items-center justify-center py-[14px] relative rounded-[12px] shrink-0 w-full" data-node-id="35:6158" data-name="Button" aria-label="A03 좌석으로 예약하기">
           <div className="absolute bg-[rgba(255,255,255,0)] inset-0 rounded-[12px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)]" data-node-id="35:6159" data-name="Button:shadow"/>
@@ -466,6 +467,6 @@ export default function SeatScreen() {
             <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgContainer20}/>
           </div>
         </PrototypeLink>
-      </div>
+      </BottomDock>
     </div>);
 }
