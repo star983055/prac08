@@ -17,8 +17,8 @@ export function time(value: number) { return `${String(Math.floor(value / 60)).p
 export function dateLabel(value: string) { const d=new Date(`${value}T12:00:00`); return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${'일월화수목금토'[d.getDay()]})`; }
 export function go(slug: string) { if(window.location.hash===`#/${slug}`) document.querySelector('.prototype-scroll')?.scrollTo({top:0}); else window.location.hash=`/${slug}`; }
 const defaults: Saved = { selection: {store:'daehak',date:today(),start:840,end:960,seat:'A03'}, booking:null,history:[],favorites:['daehak'],orders:[],rating:0,tags:[],awayUntil:null };
-function load(): Saved {
-  try { const raw = JSON.parse(localStorage.getItem(KEY) || 'null');
+function load(key: string): Saved {
+  try { const raw = JSON.parse(localStorage.getItem(key) || 'null');
     if (raw && raw.selection && stores.some(s=>s.id===raw.selection.store) && typeof raw.selection.date==='string' && Number.isFinite(raw.selection.start) && Number.isFinite(raw.selection.end) && Array.isArray(raw.history) && Array.isArray(raw.favorites)) return {...defaults,...raw};
   } catch { /* A blocked or cleared browser store starts a new demo. */ }
   return defaults;
@@ -36,15 +36,16 @@ type StudyValue = {
   toggleFavorite:(id:StoreId)=>void; copy:(text:string)=>Promise<void>;
 };
 const StudyContext=createContext<StudyValue | null>(null);
-export function StudyProvider({children}:{children:ReactNode}) {
-  const [data,setData]=useState(load); const [now,setNow]=useState(Date.now());
+export function StudyProvider({children,userId}:{children:ReactNode;userId:string}) {
+  const storageKey = `${KEY}:${userId}`;
+  const [data,setData]=useState(() => load(storageKey)); const [now,setNow]=useState(Date.now());
   const [panel,setPanel]=useState<Panel>(null);const [message,setMessage]=useState('');
   const [consent,setConsent]=useState(false); const [policyOpen,setPolicyOpen]=useState(true);
   const [query,setQuery]=useState(''); const [sort,setSort]=useState(false);
   const [availableOnly,setAvailableOnly]=useState(false);
   const [timePicking,setTimePicking]=useState<'start'|'end'>('start');
   const [weekStart,setWeekStart]=useState(()=>data.selection.date>=today()?data.selection.date:today());
-  useEffect(()=>{try{localStorage.setItem(KEY,JSON.stringify(data));}catch{/* In-memory use still works. */}},[data]);
+  useEffect(()=>{try{localStorage.setItem(storageKey,JSON.stringify(data));}catch{/* In-memory use still works. */}},[data,storageKey]);
   useEffect(()=>{const id=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(id);},[]);
   useEffect(()=>{if(!message)return;const id=setTimeout(()=>setMessage(''),3500);return()=>clearTimeout(id);},[message]);
   useEffect(()=>{if(data.awayUntil && now>=data.awayUntil)setData(d=>({...d,awayUntil:null}));},[now,data.awayUntil]);

@@ -1,9 +1,6 @@
 import { useStudy } from './study-state';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-
-// Publishable key: access is restricted by the database's grants and RLS.
-const apiUrl = 'https://udjbojamuoofyxuggskc.supabase.co';
-const publishableKey = 'sb_publishable__zMj55uVai364sC2BzaPBg_YCS3si-e';
+import { supabase } from '../lib/supabase';
 
 export function FeedbackForm() {
   const study = useStudy();
@@ -25,13 +22,11 @@ export function FeedbackForm() {
     submitting.current = true;
     setStatus('saving');
     try {
-      const response = await fetch(`${apiUrl}/rest/v1/input_db`, {
-        method: 'POST',
-        headers: { apikey: publishableKey, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-        body: JSON.stringify({ input, rating: study.data.rating, tags: study.data.tags }),
-        signal: AbortSignal.timeout(15000),
-      });
-      if (!response.ok) throw new Error('Save failed');
+      // The database fills user_id from the verified login session.
+      const { error } = await supabase.from('input_db')
+        .insert({ input, rating: study.data.rating, tags: study.data.tags })
+        .abortSignal(AbortSignal.timeout(15000));
+      if (error) throw error;
       setMessage('');
       setStatus('success');
     } catch {

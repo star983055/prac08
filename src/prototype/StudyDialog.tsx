@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { CalendarPicker } from './CalendarPicker';
 import { Button } from '../components/ui/button';
 import { dateLabel, go, stores, time, useStudy } from './study-state';
+import { useIdentity } from './AuthGate';
+import { supabase } from '../lib/supabase';
 
 export function StudyDialog(){
+  const identity = useIdentity();
   const s=useStudy();const ref=useRef<HTMLDialogElement>(null);
   const [manual,setManual]=useState('');const [error,setError]=useState('');
   const [drink,setDrink]=useState('아메리카노');
@@ -22,7 +25,7 @@ export function StudyDialog(){
     {s.panel==='map'&&<><p>예시 매장의 주소와 도보 거리를 확인하세요.</p>{stores.map(x=><section key={x.id} className="study-list-row"><strong>{x.name}</strong><p>{x.address}</p><p>{x.distance>=1000?`${x.distance/1000}km`:`${x.distance}m`} · {x.hours}</p><Button variant="outline" onClick={()=>void s.copy(x.address)}>주소 복사</Button><Button onClick={()=>{s.setSelection({store:x.id,seat:'A03'});leave('time');}}>이 매장 예약</Button></section>)}</>}
     {s.panel==='history'&&<>{s.data.history.length===0?<p>아직 지난 예약이 없습니다.</p>:s.data.history.map(x=><section className="study-list-row" key={x.id}><strong>{stores.find(y=>y.id===x.store)?.name} · {x.seat}</strong><p>{dateLabel(x.date)}</p><p>{time(x.start)} ~ {time(x.end)} · {x.status==='cancelled'?'취소':'이용 완료'}{x.rating?` · ${x.rating}점`:''}</p>{x.status==='finished'&&<Button variant="outline" onClick={()=>{s.setData(d=>({...d,report:x,rating:x.rating||0,tags:x.tags||[]}));leave('finished');}}>이용 리포트·평가</Button>}</section>)}</>}
     {s.panel==='alerts'&&<><p>{b?.status==='waiting'?`${store.name} ${b.seat} 좌석 예약이 체크인을 기다리고 있어요.`:b?.status==='active'?`이용 중입니다. 남은 시간 ${Math.max(0,Math.ceil(((b.dueAt||s.now)-s.now)/60000))}분`:'새로운 예약 알림이 없습니다.'}</p>{b&&(b.status==='waiting'||b.status==='active')&&<Button onClick={()=>leave(s.statusPage())}>예약현황 확인</Button>}</>}
-    {s.panel==='profile'&&<><p>박한별 님 · BLUE 멤버십</p><p>즐겨찾기 {s.data.favorites.length}개 · 지난 예약 {s.data.history.length}건</p><div className="study-menu"><Button onClick={()=>leave(s.statusPage())}>예약현황</Button><Button onClick={()=>leave('favorites')}>나의 매장</Button><Button onClick={()=>s.setPanel('history')}>지난 예약 내역</Button><Button onClick={()=>s.setPanel('stamps')}>멤버십 확인</Button></div></>}
+    {s.panel==='profile'&&<><Button variant="outline" onClick={() => void supabase.auth.signOut()}>로그아웃</Button><p>{identity.username} 님 · BLUE 멤버십</p><p>즐겨찾기 {s.data.favorites.length}개 · 지난 예약 {s.data.history.length}건</p><div className="study-menu"><Button onClick={()=>leave(s.statusPage())}>예약현황</Button><Button onClick={()=>leave('favorites')}>나의 매장</Button><Button onClick={()=>s.setPanel('history')}>지난 예약 내역</Button><Button onClick={()=>s.setPanel('stamps')}>멤버십 확인</Button></div></>}
     {s.panel==='stamps'&&<><p>BLUE MEMBERSHIP</p><p>이용 완료 {s.data.history.filter(x=>x.status==='finished').length}회</p><p>실제 멤버십 적립은 매장 음료 주문 시 확인해 주세요.</p><Button onClick={()=>leave('home')}>멤버스 홈</Button></>}
     {s.panel==='coupons'&&<><p>디자인에 표시된 예시 쿠폰 3장입니다.</p><ul><li>아메리카노 할인 쿠폰</li><li>제조 음료 할인 쿠폰</li><li>멤버십 혜택 쿠폰</li></ul><p>실제 사용 가능 여부는 이디야 멤버십에서 확인해 주세요.</p></>}
     {s.panel==='news'&&<><p>스터디존은 음료 주문 후 이용할 수 있어요.</p><p>매장과 날짜·시간, 좌석을 선택한 뒤 예약하고 좌석 번호로 체크인하세요.</p><Button onClick={()=>leave('stores')}>스터디존 매장 찾기</Button></>}
