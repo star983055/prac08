@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="SVG">
+<path id="Vector" d="M16 16H40C44.4153 16 48 19.5847 48 24V36C48 40.4153 44.4153 44 40 44H16C11.5847 44 8 40.4153 8 36V24C8 19.5847 11.5847 16 16 16V16" fill="white"/>
+<path id="Vector_2" d="M16 26C16 22.6863 18.6863 20 22 20H34C37.3137 20 40 22.6863 40 26V34H16V26V26" fill="#DBE1FF"/>
+<path id="Vector_3" d="M12 36H44V38C44 40.2091 42.2091 42 40 42H16C13.7909 42 12 40.2091 12 38V36V36" fill="#142850"/>
+<path id="Vector_4" d="M25 27H31C32.6557 27 34 28.3443 34 30V33C34 34.6557 32.6557 36 31 36H25C23.3443 36 22 34.6557 22 33V30C22 28.3443 23.3443 27 25 27V27" fill="white"/>
+<path id="Vector_5" d="M26 12C26 12 25.5 14 26.5 15.5" stroke-width="1.8" stroke-linecap="round" stroke="#0051D5"/>
+<path id="Vector_6" d="M30 11C30 11 29.5 13.5 30.5 15" stroke-width="1.8" stroke-linecap="round" stroke="#316BF3"/>
+<path id="Vector_7" d="M40.5 14C40.5 15.3798 41.6202 16.5 43 16.5C44.3798 16.5 45.5 15.3798 45.5 14C45.5 12.6202 44.3798 11.5 43 11.5C41.6202 11.5 40.5 12.6202 40.5 14V14" fill="#0051D5"/>
+</g>
+</svg>
