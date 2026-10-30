@@ -28,19 +28,32 @@ function currentScreen() {
 export function PrototypeApp() {
   const study = useStudy();
   const [screen, setScreen] = useState(currentScreen);
-  const [scale, setScale] = useState(() => Math.min(1, window.innerWidth / 402));
+  const [viewportSize, setViewportSize] = useState(() => ({ width: window.innerWidth, height: window.visualViewport?.height || window.innerHeight }));
+  const viewport = useRef<HTMLElement>(null);
   const transitionDuration = useRef(0);
   const stage = useRef<HTMLDivElement>(null);
   const firstRender = useRef(true);
 
   useEffect(() => {
     const navigate = () => setScreen(currentScreen());
-    const resize = () => setScale(Math.min(1, window.innerWidth / 402));
+    const resize = () => {
+      const element = viewport.current;
+      const style = element ? getComputedStyle(element) : null;
+      const insetX = style ? parseFloat(style.paddingLeft) + parseFloat(style.paddingRight) : 0;
+      const insetY = style ? parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) : 0;
+      setViewportSize({ width: (element?.clientWidth || window.innerWidth) - insetX, height: Math.min(element?.clientHeight || window.innerHeight, window.visualViewport?.height || window.innerHeight) - insetY });
+    };
+    resize();
+    const observer = new ResizeObserver(resize);
+    if (viewport.current) observer.observe(viewport.current);
     window.addEventListener('hashchange', navigate);
     window.addEventListener('resize', resize);
+    window.visualViewport?.addEventListener('resize', resize);
     return () => {
       window.removeEventListener('hashchange', navigate);
       window.removeEventListener('resize', resize);
+      window.visualViewport?.removeEventListener('resize', resize);
+      observer.disconnect();
     };
   }, []);
 
@@ -78,11 +91,16 @@ export function PrototypeApp() {
   }
 
   const Screen = components[screen.component];
+  const topOffset = screen.slug === 'stores' ? 22 : 0;
+  const canvasHeight = screen.slug === 'favorites' ? 1400 : screen.height;
+  const scale = Math.min(1, viewportSize.width / (screen.width + 4), viewportSize.height / (canvasHeight + topOffset));
   return (
-    <main className="prototype-viewport" onClickCapture={rememberTransition}>
+    <main className="prototype-viewport" ref={viewport} onClickCapture={rememberTransition}>
       <div className="prototype-stage" ref={stage} tabIndex={-1} aria-label={screen.name}
-        style={{ width: screen.width, height: screen.height, zoom: scale }}>
-        <Screen key={screen.id} />
+        style={{ width: screen.width, height: canvasHeight + topOffset, zoom: scale }}>
+        <div className="prototype-canvas" style={{ width: screen.width, height: canvasHeight, top: topOffset }}>
+          <Screen key={screen.id} />
+        </div>
       </div>
       <StudyDialog />
     </main>

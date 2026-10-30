@@ -1,7 +1,7 @@
 import { Children, cloneElement, isValidElement, useState, type HTMLAttributes, type ReactNode } from 'react';
 import { Button } from '../components/ui/button';
 import { cn } from '../lib/utils';
-import { dateLabel, dayAt, go, stores, time, useStudy, type StoreId } from './study-state';
+import { dateLabel, dayAt, go, stores, time, today, useStudy, type StoreId } from './study-state';
 
 export const dayIds=['35:7120','35:7129','35:7137','35:7145','35:7153','35:7161','35:7169'];
 export const timeIds=['35:7225','35:7227','35:7229','35:7231','35:7233','35:7239','35:7241','35:7243','35:7245','35:7251','35:7253','35:7255','35:7257','35:7259','35:7261','35:7263'];
@@ -15,10 +15,10 @@ export function Interactive({screen,label='',className,children,...props}:Props)
   const [toggled,setToggled]=useState(false);
   const day=dayIds.indexOf(id),slot=timeIds.indexOf(id),seat=seats[id],rating=stars.indexOf(id);
   const favorite=favoriteIds[id];
-  const disabled=slot>=0&&slot<4 || ['A01','A02','B03'].includes(seat||'');
+  const disabled=slot>=0&&slot<4 || ['A01','A02','B03'].includes(seat||'') || id==='35:8274'&&(s.data.booking?.extensionCount||0)>=1;
   let selected:boolean|undefined;
   let kind='action';
-  if(day>=0){kind='day';selected=s.data.selection.date===dayAt(day);}
+  if(day>=0){kind='day';selected=s.data.selection.date===dayAt(day,s.weekStart);}
   if(slot>=0){kind='time';const minute=720+slot*30;selected=minute>=s.data.selection.start&&minute<=s.data.selection.end;}
   if(seat){kind='seat';selected=s.data.selection.seat===seat;}
   if(favorite){kind='favorite';selected=s.data.favorites.includes(favorite);}
@@ -30,7 +30,7 @@ export function Interactive({screen,label='',className,children,...props}:Props)
   if(id==='35:7915'){kind='flash';selected=toggled;}
 
   function act(){
-    if(day>=0){s.setSelection({date:dayAt(day)});return;}
+    if(day>=0){s.setSelection({date:dayAt(day,s.weekStart)});return;}
     if(slot>=0){
       const minute=720+slot*30;
       if(s.timePicking==='start'){
@@ -150,6 +150,8 @@ export function BoundText({nodeId,screen,controlId='',children,...props}:HTMLAtt
       const seconds=Math.max(0,Math.ceil(((booking?.dueAt||s.now)-s.now)/1000));raw=`${String(Math.floor(seconds/3600)).padStart(2,'0')}:${String(Math.floor(seconds%3600/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;
     }
     if(screen==='ActiveScreen'&&raw==='안정적 이용 가능')raw=s.data.awayUntil?`자리비움 ${Math.ceil((s.data.awayUntil-s.now)/60000)}분`:'이용 중';
+    if(screen==='ActiveScreen'&&raw.includes('이용 연장하기'))raw=(booking?.extensionCount||0)>=1?`연장 완료 (${booking?.extensionMinutes||0}분 · 1회 사용)`:'이용 연장하기 (최초 1회 · 최대 1시간)';
+    if(screen==='TimeScreen'&&raw.includes('이용일 7일 전부터'))raw='전체 달력에서도 원하는 날짜를 선택할 수 있어요.';
     if(screen==='ActiveScreen'&&raw==='자리비움 설정')raw=s.data.awayUntil?'자리비움 해제':'자리비움 설정';
     if(screen==='ActiveScreen'&&raw.startsWith('총 120분'))raw=`총 ${value.end-value.start}분 중 ${Math.max(0,Math.floor((s.now-(booking?.checkedAt||s.now))/60000))}분 경과`;
     if(screen==='ActiveScreen'&&raw==='14:00')raw=time(value.start);
@@ -159,7 +161,7 @@ export function BoundText({nodeId,screen,controlId='',children,...props}:HTMLAtt
     if(screen==='WaitingScreen'&&raw.includes('입실 24분 전'))raw='체크인 대기';
     if(screen==='ScanScreen'&&raw.includes('카메라 접근 권한'))raw='체험용 화면입니다. 실제 카메라는 사용하지 않습니다.';
     const dIndex=dayIds.indexOf(controlId);
-    if(dIndex>=0){const d=new Date(`${dayAt(dIndex)}T12:00:00`);if(/^\d+$/.test(raw))raw=String(d.getDate());else if(raw.length===1)raw='일월화수목금토'[d.getDay()];else raw=dIndex===0?'오늘':dIndex===1?'내일':'일월화수목금토'[d.getDay()];}
+    if(dIndex>=0){const date=dayAt(dIndex,s.weekStart),d=new Date(`${date}T12:00:00`);if(/^\d+$/.test(raw))raw=String(d.getDate());else if(raw.length===1)raw='일월화수목금토'[d.getDay()];else raw=date===today()?'오늘':date===dayAt(1)?'내일':dIndex===0?'선택일':'일월화수목금토'[d.getDay()];}
     if(timeIds.includes(controlId)&&['시작','종료'].includes(raw)) raw='';
     return raw;
   }

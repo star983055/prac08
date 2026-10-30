@@ -7,12 +7,12 @@ export const stores = [
 ] as const;
 export type StoreId = typeof stores[number]['id'];
 export type Selection = { store: StoreId; date: string; start: number; end: number; seat: string };
-export type Booking = Selection & { id: string; status: 'waiting' | 'active' | 'finished' | 'cancelled'; checkedAt?: number; dueAt?: number; endedAt?: number; rating?: number; tags?: string[] };
+export type Booking = Selection & { id: string; status: 'waiting' | 'active' | 'finished' | 'cancelled'; checkedAt?: number; dueAt?: number; endedAt?: number; rating?: number; tags?: string[]; extensionCount?: number; extensionMinutes?: number };
 type Saved = { selection: Selection; booking: Booking | null; report?: Booking; history: Booking[]; favorites: StoreId[]; orders: string[]; rating: number; tags: string[]; awayUntil: number | null };
-export type Panel = 'alerts' | 'cancel' | 'checkout' | 'extend' | 'manual' | 'wifi' | 'order' | 'map' | 'history' | 'profile' | 'coupons' | 'stamps' | 'news' | 'gift' | 'more' | 'barcode' | null;
+export type Panel = 'calendar' | 'alerts' | 'cancel' | 'checkout' | 'extend' | 'manual' | 'wifi' | 'order' | 'map' | 'history' | 'profile' | 'coupons' | 'stamps' | 'news' | 'gift' | 'more' | 'barcode' | null;
 const KEY = 'study-zone-interactive-v2';
 export function today() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
-export function dayAt(index: number) { const d = new Date(`${today()}T12:00:00`); d.setDate(d.getDate()+index); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+export function dayAt(index: number, base = today()) { const d = new Date(`${base}T12:00:00`); d.setDate(d.getDate()+index); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 export function time(value: number) { return `${String(Math.floor(value / 60)).padStart(2,'0')}:${String(value % 60).padStart(2,'0')}`; }
 export function dateLabel(value: string) { const d=new Date(`${value}T12:00:00`); return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${'일월화수목금토'[d.getDay()]})`; }
 export function go(slug: string) { if(window.location.hash===`#/${slug}`) window.scrollTo(0,0); else window.location.hash=`/${slug}`; }
@@ -30,6 +30,7 @@ type StudyValue = {
   query: string; setQuery:(v:string)=>void; sort: boolean; setSort:(v:boolean)=>void;
   availableOnly: boolean; setAvailableOnly:(v:boolean)=>void;
   timePicking:'start'|'end'; setTimePicking:(v:'start'|'end')=>void;
+  weekStart: string; setWeekStart:(v:string)=>void;
   setSelection:(patch:Partial<Selection>)=>void; reserve:()=>void; checkIn:()=>void;
   finish:()=>void; cancel:()=>void; extend:(minutes:number)=>void; statusPage:()=>string;
   toggleFavorite:(id:StoreId)=>void; copy:(text:string)=>Promise<void>;
@@ -42,6 +43,7 @@ export function StudyProvider({children}:{children:ReactNode}) {
   const [query,setQuery]=useState(''); const [sort,setSort]=useState(false);
   const [availableOnly,setAvailableOnly]=useState(false);
   const [timePicking,setTimePicking]=useState<'start'|'end'>('start');
+  const [weekStart,setWeekStart]=useState(()=>data.selection.date>=today()?data.selection.date:today());
   useEffect(()=>{try{localStorage.setItem(KEY,JSON.stringify(data));}catch{/* In-memory use still works. */}},[data]);
   useEffect(()=>{const id=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(id);},[]);
   useEffect(()=>{if(!message)return;const id=setTimeout(()=>setMessage(''),3500);return()=>clearTimeout(id);},[message]);
@@ -58,7 +60,7 @@ export function StudyProvider({children}:{children:ReactNode}) {
   function reserve(){
     if(!consent){setMessage('운영 및 이용 정책에 동의해 주세요.');return;}
     if(data.booking?.status==='waiting'||data.booking?.status==='active'){setMessage('진행 중인 예약을 먼저 확인해 주세요.');go(statusPage());return;}
-    const b:Booking={...data.selection,id:`ED-${Date.now().toString(36).toUpperCase()}`,status:'waiting'};
+    const b:Booking={...data.selection,id:`ED-${Date.now().toString(36).toUpperCase()}`,status:'waiting',extensionCount:0,extensionMinutes:0};
     setData(d=>({...d,booking:b,report:undefined,rating:0,tags:[],awayUntil:null}));go('complete');
   }
   function checkIn(){
@@ -72,13 +74,19 @@ export function StudyProvider({children}:{children:ReactNode}) {
   function cancel(){setData(d=>{if(!d.booking)return d;const b={...d.booking,status:'cancelled' as const,endedAt:Date.now()};return {...d,booking:null,history:[b,...d.history].slice(0,20),awayUntil:null};});setPanel(null);setMessage('예약이 취소되었습니다.');go('empty');}
   function extend(minutes:number){
     const b=data.booking;if(b?.status!=='active')return;
+    if((b.extensionCount||0)>=1){setMessage('이용 시간 연장은 최초 1회만 가능합니다.');return;}
+    if(![30,60].includes(minutes)){setMessage('연장은 1회 최대 1시간까지 가능합니다.');return;}
     const closing=b.store==='hyehwa'?1290:1320;
-    if(b.end-b.start+minutes>180 || b.end+minutes>closing){setMessage('최대 3시간 또는 매장 운영시간까지만 이용할 수 있어요.');return;}
-    setData(d=>({...d,booking:d.booking?{...d.booking,end:d.booking.end+minutes,dueAt:(d.booking.dueAt||Date.now())+minutes*60000}:null}));setPanel(null);setMessage(`${minutes}분 연장되었습니다.`);
+    if(b.end+minutes>closing){setMessage('매장 운영시간까지만 연장할 수 있어요.');return;}
+    setData(d=>{
+      const current=d.booking;
+      if(!current||current.status!=='active'||(current.extensionCount||0)>=1||current.end+minutes>closing)return d;
+      return {...d,booking:{...current,end:current.end+minutes,dueAt:(current.dueAt||Date.now())+minutes*60000,extensionCount:1,extensionMinutes:minutes}};
+    });setPanel(null);setMessage(`${minutes}분 연장되었습니다. 연장 기회 1회를 사용했어요.`);
   }
   function toggleFavorite(id:StoreId){setData(d=>({...d,favorites:d.favorites.includes(id)?d.favorites.filter(x=>x!==id):[...d.favorites,id]}));}
   async function copy(text:string){try{await navigator.clipboard.writeText(text);setMessage('복사했습니다.');}catch{setPanel('wifi');setMessage('복사 권한이 없어 정보를 표시했어요.');}}
-  const value:StudyValue={data,setData,now,panel,setPanel,toast:setMessage,consent,setConsent,policyOpen,setPolicyOpen,query,setQuery,sort,setSort,availableOnly,setAvailableOnly,timePicking,setTimePicking,setSelection,reserve,checkIn,finish,cancel,extend,statusPage,toggleFavorite,copy};
+  const value:StudyValue={data,setData,now,panel,setPanel,toast:setMessage,consent,setConsent,policyOpen,setPolicyOpen,query,setQuery,sort,setSort,availableOnly,setAvailableOnly,timePicking,setTimePicking,weekStart,setWeekStart,setSelection,reserve,checkIn,finish,cancel,extend,statusPage,toggleFavorite,copy};
   return <StudyContext.Provider value={value}>{children}<div className="study-toast" role="status" aria-live="polite">{message}</div></StudyContext.Provider>;
 }
 export function useStudy(){const value=useContext(StudyContext);if(!value)throw Error('StudyProvider is required');return value;}

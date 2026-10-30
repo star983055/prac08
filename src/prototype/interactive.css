@@ -32,7 +32,6 @@
 .study-extra-card, .study-empty-state { width: 100%; flex-shrink: 0; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 2px 6px #14285015; color: #142850; font: 14px/1.6 Arial,sans-serif; }
 .study-extra-card h3 { font-weight: 700; font-size: 18px; margin-bottom: 8px; }
 .study-extra-card button, .study-empty-state button { margin-top: 12px; margin-right: 8px; }
-.prototype-stage:has(> [data-node-id="35:7341"]) { height: max(1400px, 100vh) !important; }
 .prototype-stage [data-node-id="35:7364"] { height: auto; }
 .prototype-stage [data-node-id="35:6870"] > [data-node-id="35:6884"] { order: 0; }
 .study-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 110; max-width: min(90vw,400px); background: #001337; color: white; padding: 12px 18px; border-radius: 12px; box-shadow: 0 4px 20px #00133733; font: 14px/1.5 Arial,sans-serif; pointer-events: none; }
@@ -52,3 +51,18 @@
 .study-list-row button { margin-right: 8px; }
 .study-error { color: #ba1a1a; }
 @media(prefers-reduced-motion: reduce) { .study-control { transition: none; } }
+.study-month-label { align-items: center; gap: 4px; }
+.study-calendar-trigger { width: 28px; height: 28px; padding: 5px; border-radius: 8px; color: #142850; }
+.study-calendar-trigger svg { width: 17px; height: 17px; }
+.study-month-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.study-month-header h3 { font-size: 18px; font-weight: 700; }
+.study-month-grid { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 4px; }
+.study-weekday { text-align: center; font-size: 12px; color: #75777f; padding-bottom: 6px; }
+.study-weekday[data-weekend="true"] { color: #0051d5; }
+.study-dialog .study-month-day { padding: 0; width: 100%; height: 36px; min-height: 36px; border-radius: 10px; }
+.study-month-day[aria-current="date"] { box-shadow: inset 0 0 0 1px #0051d5; }
+.study-month-day[aria-pressed="true"] { background: #0051d5; color: white; }
+.study-calendar-footer { display: flex; gap: 10px; align-items: center; margin-top: 16px; }
+.study-calendar-footer span { flex: 1; font-size: 12px; color: #44464e; }
+.prototype-stage [data-node-id="35:7119"] { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 5px; left: 0 !important; right: 0 !important; overflow: visible; }
+.prototype-stage [data-node-id="35:7119"] > .study-control { position: relative !important; left: auto !important; top: auto !important; width: auto !important; min-width: 0 !important; padding: 6px 2px !important; }

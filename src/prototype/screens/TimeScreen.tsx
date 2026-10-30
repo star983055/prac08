@@ -1,3 +1,4 @@
+import { CalendarTrigger } from '../CalendarPicker';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink } from '../primitives';
 const imgBackground = "/prototype/35-7085-a2836.png";
@@ -76,8 +77,9 @@ export default function TimeScreen() {
                 </div>
               </div>
               <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="35:7116" data-name="Container">
-                <div className="[word-break:break-word] flex flex-col font-['Plus_Jakarta_Sans',Helvetica] font-normal justify-center leading-[0] relative shrink-0 text-[#44464e] text-[13px] whitespace-nowrap" data-node-id="35:7117">
+                <div className="study-month-label [word-break:break-word] flex font-['Plus_Jakarta_Sans',Helvetica] font-normal justify-center leading-[0] relative shrink-0 text-[#44464e] text-[13px] whitespace-nowrap" data-node-id="35:7117">
                   <BoundText className="leading-[18px]" nodeId="35:7117" screen="TimeScreen" controlId="">2026년 10월</BoundText>
+                  <CalendarTrigger />
                 </div>
               </div>
             </div>
