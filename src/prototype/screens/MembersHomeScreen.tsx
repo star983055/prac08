@@ -1,4 +1,5 @@
 import { BottomDock } from '../BottomDock';
+import { LogoutButton } from '../LogoutButton';
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink, PrototypeCard } from '../primitives';
 const imgAb6AXuABmCBv8Nq0Mx3W33ZjoVenEHkWX9Jh0ZjR2J1Iazw8Pl3Brcv1Ok2TT0Cf79H3By3M4Fhph8Fp7XaBHd7R3T0SgH7ENlsK2DPrtmvVLe3Jb1PJ2CTtuvDvCjQzsplhps3BxSckNfrSXew6Vo0XLk17MeiSLfGNnDxPhPiXSx9LcTrSa6Ag1JnoOwFmiQbEf9JoHRsiFopfKOyAdeLoReNn9CP40 = "/prototype/35-6181-4f7bc.png";
@@ -379,6 +380,7 @@ export default function MembersHomeScreen() {
             </div>
           </div>
           <div className="content-stretch flex gap-[4px] items-center relative shrink-0" data-node-id="35:6435" data-name="Container">
+            <LogoutButton />
             <Interactive className="content-stretch flex items-center justify-center relative rounded-[9999px] shrink-0 size-[44px]" data-node-id="35:6436" data-name="Button - 알림" screen="MembersHomeScreen" label="">
               <div className="h-[20px] relative shrink-0 w-[16px]" data-node-id="35:6437" data-name="Container">
                 <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgContainer14}/>

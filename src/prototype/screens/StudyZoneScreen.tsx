@@ -1,4 +1,5 @@
 import { BottomDock } from '../BottomDock';
+import { LogoutButton } from '../LogoutButton';
 
 import { BoundText, Interactive } from '../controls';
 import { PrototypeLink, PrototypeCard } from '../primitives';
@@ -394,6 +395,7 @@ export default function StudyZoneScreen() {
             </div>
           </div>
           <div className="content-stretch flex gap-[4px] items-center relative shrink-0" data-node-id="35:5933" data-name="Container">
+            <LogoutButton />
             <Interactive className="content-stretch flex items-center justify-center relative rounded-[9999px] shrink-0 size-[44px]" data-node-id="35:5934" data-name="Button - 알림" screen="StudyZoneScreen" label="">
               <div className="h-[20px] relative shrink-0 w-[16px]" data-node-id="35:5935" data-name="Container">
                 <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgContainer17}/>
