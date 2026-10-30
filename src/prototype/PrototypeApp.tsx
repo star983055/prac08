@@ -15,6 +15,9 @@ import CheckedInScreen from './screens/CheckedInScreen';
 import ActiveScreen from './screens/ActiveScreen';
 import FinishedScreen from './screens/FinishedScreen';
 import './prototype.css';
+import './interactive.css';
+import { useStudy } from './study-state';
+import { StudyDialog } from './StudyDialog';
 
 const components = { StudyZoneScreen, SeatScreen, MembersHomeScreen, WaitingScreen, ConfirmScreen, StoresScreen, TimeScreen, FavoritesScreen, CompleteScreen, EmptyScreen, ScanScreen, CheckedInScreen, ActiveScreen, FinishedScreen };
 
@@ -23,6 +26,7 @@ function currentScreen() {
 }
 
 export function PrototypeApp() {
+  const study = useStudy();
   const [screen, setScreen] = useState(currentScreen);
   const [scale, setScale] = useState(() => Math.min(1, window.innerWidth / 402));
   const transitionDuration = useRef(0);
@@ -39,6 +43,17 @@ export function PrototypeApp() {
       window.removeEventListener('resize', resize);
     };
   }, []);
+
+  useEffect(() => {
+    if (window.location.hash !== `#/${screen.slug}`) return;
+    const status = study.data.booking?.status;
+    if ((screen.slug === 'waiting' && status !== 'waiting') ||
+        (screen.slug === 'active' && status !== 'active') ||
+        (screen.slug === 'scan' && status !== 'waiting') ||
+        (screen.slug === 'checked-in' && status !== 'active')) {
+      window.location.hash = `/${study.statusPage()}`;
+    }
+  }, [screen.slug, study.data.booking?.status]);
 
   useEffect(() => {
     document.title = `${screen.name} · 스터디존`;
@@ -69,6 +84,7 @@ export function PrototypeApp() {
         style={{ width: screen.width, height: screen.height, zoom: scale }}>
         <Screen key={screen.id} />
       </div>
+      <StudyDialog />
     </main>
   );
 }
