@@ -265,7 +265,7 @@ export default function FinishedScreen() {
               <FeedbackForm />
             </div>
           </div>
-          <div className="absolute h-[88px] left-[20px] right-[20px] top-[1090px]" data-node-id="35:8470" data-name="Notice Alert for Leaving items:margin"/>
+
           <div className="absolute bg-[#f2f3ff] h-[64px] left-[20px] right-[20px] rounded-[12px] top-[966px]" data-node-id="35:8471" data-name="Notice Alert for Leaving items">
             <div className="-translate-y-1/2 absolute h-[18.333px] left-[14px] top-1/2 w-[14.667px]" data-node-id="35:8472" data-name="Container">
               <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgContainer10}/>
@@ -277,7 +277,7 @@ export default function FinishedScreen() {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-[62px] content-stretch flex flex-col h-[135px] items-start left-0 pt-[24px] right-0" data-node-id="35:8485" data-name="Section - Primary & Secondary Action CTAs:margin">
+          <div className="pointer-events-none absolute bottom-[62px] content-stretch flex flex-col h-[135px] items-start left-0 pt-[24px] right-0" data-node-id="35:8485" data-name="Section - Primary & Secondary Action CTAs:margin">
             <BottomDock className="content-stretch cursor-pointer flex flex-col gap-[12px] items-start pt-[4px] relative shrink-0 w-full" data-node-id="35:8486" data-name="Section - Primary & Secondary Action CTAs">
               <PrototypeLink className="bg-[#001337] content-stretch flex gap-[8px] h-[52px] items-center justify-center relative rounded-[12px] shrink-0 w-full" data-node-id="35:8487" data-name="Button" aria-label="다시 스터디존 예약하기">
                 <div className="absolute bg-[rgba(255,255,255,0)] h-[52px] left-0 right-0 rounded-[12px] shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)] top-0" data-node-id="35:8488" data-name="Button:shadow"/>
